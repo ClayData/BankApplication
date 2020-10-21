@@ -1,9 +1,13 @@
 package accounts;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CurrentAccount implements Actions {
 
 	private int balance;
 	private int minBalance = 1500;
+	ArrayList<Integer> statement = new ArrayList<>();
 	
 	public CurrentAccount(int initial, int salary, int age) throws BelowMinBalanceException, BelowMinAgeException, BelowMinSalaryException {
 		if(initial < minBalance) {
@@ -32,19 +36,30 @@ public class CurrentAccount implements Actions {
 	}
 
 	@Override
-	public void withdraw(int amount) {
-		this.balance -= amount;
+	public synchronized void withdraw(int amount) {
+		if((balance - amount) < minBalance) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		} else {
+		balance = balance - amount;
+		this.statement.add(balance);
+		}
 	}
 
 	@Override
-	public void deposit(int amount) {
-		this.balance += amount;
+	public synchronized void deposit(int amount) {
+		balance = balance + amount;
+		this.statement.add(balance);
+		notify();
 	}
 
 	@Override
-	public int getStatement() {
+	public ArrayList<Integer> getStatement() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.statement;
 	}
 	
 }

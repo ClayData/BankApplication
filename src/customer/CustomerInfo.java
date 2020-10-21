@@ -3,15 +3,13 @@ package customer;
 public class CustomerInfo {
 
 	private String name;
-	private String id;
 	private String gender;
 	private int salary;
 	private String contact;
 	
-	public CustomerInfo(String name, String id, String gender, int salary, String contact) {
+	public CustomerInfo(String name, String gender, int salary, String contact) {
 		super();
 		this.name = name;
-		this.id = id;
 		this.gender = gender;
 		this.salary = salary;
 		this.contact = contact;
@@ -30,13 +28,13 @@ public class CustomerInfo {
 		this.name = name;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+//	public String getId() {
+//		return id;
+//	}
+//  Will just be return the sql query
+//	public void setId(String id) {
+//		this.id = id;
+//	}
 
 	public String getGender() {
 		return gender;
