@@ -50,13 +50,45 @@ public class BankApplication {
 		System.out.println("Press 2 to open a new account with a customer");
 		System.out.println("Press 3 to make a transaction");
 		int opening = sc.nextInt();
-		
+		int transaction;
+		int acct;
 		if(opening == 1) {
 			ba.addUser();
 		} else if (opening == 2) {
 			ba.openAccount();
+		} else if (opening == 3) {
+			System.out.println("What type of transaction would you like to make?");
+			System.out.println("Press 1 for deposit");
+			System.out.println("Press 2 for withdrawal");
+			System.out.println("Press 3 for transfer");
+			transaction = sc.nextInt();
+			if(transaction == 1) {
+				System.out.println("Which account would you like to deposit to?");
+				System.out.println("Press 1 for savings account?");
+				System.out.println("Press 2 for salary account?");
+				System.out.println("Press 3 for current account?");
+			} else if(transaction == 2) {
+				System.out.println("Which account would you like to withdraw from?");
+				System.out.println("Press 1 for savings account?");
+				System.out.println("Press 2 for salary account?");
+				System.out.println("Press 3 for current account?");
+			} else if (transaction == 3) {
+				System.out.println("Which accounts would you like to transfer from and to?");
+				System.out.println("Press 1 for savings to salary");
+				System.out.println("Press 2 for savings to current");
+				System.out.println("Press 3 for salary to savings");
+				System.out.println("Press 4 for salary to current");
+				System.out.println("Press 5 for current to savings");
+				System.out.println("Press 6 for current to salary");
+				}
+			}
+		
+		
+		sc.close();
 		}
 		
 		
+		
+		
 	}
-}
+

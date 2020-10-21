@@ -12,6 +12,7 @@ public class AccountDeposit {
 	public void depositMoney(String accountType, int amount, int cust_id) {
 		Connection con = null;
 		int balance = 0;
+		int acct_id = 0;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			System.out.println("Driver Register");
@@ -20,13 +21,18 @@ public class AccountDeposit {
 			System.out.println("connection done");
 
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("select balance from " + accountType + " where cust_id = " + cust_id);
+			ResultSet rs = stmt.executeQuery("select * from " + accountType + " where cust_id = " + cust_id);
 			while(rs.next()) {
-				balance = rs.getInt(1) + amount;
+				acct_id = rs.getInt(1);
+				balance = rs.getInt(2) + amount;
 			}
 			
 			PreparedStatement pre = con.prepareStatement("update " + accountType + " set balance = " + balance + " where cust_id = " + cust_id);
 			pre.executeUpdate();
+			
+			//Add transaction for statement
+			TransactionBuilder tb = new TransactionBuilder();
+			tb.addTransaction(amount, cust_id, accountType, acct_id);
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

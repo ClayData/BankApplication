@@ -1,6 +1,8 @@
 package accounts;
 
 import java.util.ArrayList;
+import database.AddAccount;
+import database.BalanceCheck;
 
 public class SavingsAccount implements Actions{
 
@@ -12,16 +14,20 @@ public class SavingsAccount implements Actions{
 		
 	};
 	
-	public SavingsAccount(int initial, int age) throws BelowMinBalanceException, BelowMinAgeException {
+	public SavingsAccount(int initial, int age, int cust_id) throws BelowMinBalanceException, BelowMinAgeException {
 		if(initial < minBalance) {
 			throw new BelowMinBalanceException("Current Account balance should be $1000");
 		}
 		if(age < 18) {
 			throw new BelowMinAgeException("Must be over 18 years old to open Savings Account");
 		}
+		AddAccount aa = new AddAccount();
+		aa.openAnAccount("savings_account", cust_id, initial);
 	}
 	
 	public int getBalance() {
+		BalanceCheck bc = new BalanceCheck();
+		balance = bc.checkBalance("current_account");
 		return balance;
 	}
 

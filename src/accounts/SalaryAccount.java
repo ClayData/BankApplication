@@ -2,13 +2,16 @@ package accounts;
 
 import java.util.ArrayList;
 
+import database.AddAccount;
+import database.BalanceCheck;
+
 public class SalaryAccount implements Actions {
 
 	private int balance;
 	private int minBalance = 500;
 	ArrayList<Integer> statement = new ArrayList<>();
 	
-	public SalaryAccount(int initial, int salary, int age) throws BelowMinBalanceException, BelowMinSalaryException, BelowMinAgeException {
+	public SalaryAccount(int initial, int salary, int age, int cust_id) throws BelowMinBalanceException, BelowMinSalaryException, BelowMinAgeException {
 		
 		if(initial < minBalance) {
 			throw new BelowMinBalanceException("Current Account balance should be $500");
@@ -19,9 +22,13 @@ public class SalaryAccount implements Actions {
 		if(age < 23) {
 			throw new BelowMinAgeException("Must be over 23 years old to open account");
 		}
+		AddAccount aa = new AddAccount();
+		aa.openAnAccount("salary_account", cust_id, initial);
 	}
 	
 	public int getBalance() {
+		BalanceCheck bc = new BalanceCheck();
+		balance = bc.checkBalance("current_account");
 		return balance;
 	}
 
