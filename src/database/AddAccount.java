@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class AddAccount {
 	
-	public void openAnAccount(String accountType, int custID,int deposit) {
+	public void openAnAccount(String accountType, int custID, int deposit) {
 		String accID = "";
 		switch(accountType) {
 		case "salary_account":

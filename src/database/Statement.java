@@ -8,36 +8,34 @@ import java.sql.SQLException;
 
 public class Statement {
 	
-//	public void retrieveStatement(int cust_id) {
-//		Connection con = null;
-//		
-//		try {
-//			Class.forName("oracle.jdbc.driver.OracleDriver");
-//			System.out.println("Driver Register");
-//			
-//			con = DriverManager.getConnection("jdbc:oracle:thin:@bankdatabase.cz8yphudm026.us-east-2.rds.amazonaws.com:1521:orcl", "admin", "spicymeatball");
-//			System.out.println("connection done");
-//
-//			Statement stmt = con.createStatement();
-//			ResultSet rs = stmt.executeQuery("select * from transactions where cust_id = " + cust_id);
-//			while(rs.next()) {
-//				acctId = rs.getInt(1);
-//			}
-//			
-//			
-//			
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		finally {
-//			try {
-//				con.close();
-//			} catch (SQLException e) {
-//				
-//				e.printStackTrace();
-//			}
-//		}
-//	}
+	public void retrieveStatement(int cust_id, String acct_type) {
+		Connection con = null;
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			
+			con = DriverManager.getConnection("jdbc:oracle:thin:@bankdatabase.cz8yphudm026.us-east-2.rds.amazonaws.com:1521:orcl", "admin", "spicymeatball");
+
+			PreparedStatement stm = con.prepareStatement("select * from transactions where account_type = ? and cust_id = ?");
+			stm.setString(1, acct_type);
+			stm.setInt(2, cust_id);
+			ResultSet rs = stm.executeQuery();
+			while(rs.next()) {
+				System.out.println(rs.getInt(1) + "  " + rs.getInt(2) + "  " + rs.getString(4) + "  " + rs.getString(5));
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
+		}
+	}
 }

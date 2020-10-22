@@ -31,7 +31,7 @@ public class WithdrawMoney {
 			pre.executeUpdate();
 			
 			TransactionBuilder tb = new TransactionBuilder();
-			tb.addTransaction(amount, cust_id, accountType, acctId);
+			tb.addTransaction(amount, cust_id, "credit", accountType);
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

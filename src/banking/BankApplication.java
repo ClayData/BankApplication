@@ -2,6 +2,9 @@ package banking;
 
 import java.util.Scanner;
 
+import accounts.BelowMinAgeException;
+import accounts.BelowMinBalanceException;
+import accounts.BelowMinSalaryException;
 import accounts.CurrentAccount;
 import accounts.SalaryAccount;
 import accounts.SavingsAccount;
@@ -23,12 +26,14 @@ public class BankApplication {
 		int salary = sc.nextInt();
 		System.out.println("Enter customer email: ");
 		String contact = sc.next();
+		System.out.println("What is the age of the owner of the account");
+		int age = sc.nextInt();
 		AddUser au = new AddUser();
-		au.addCustomer(name, gender, salary, contact);
+		au.addCustomer(name, gender, salary, contact, age);
 		sc.close();
 	}
 	
-	public void openAccount() {
+	public void openAccount() throws BelowMinBalanceException, BelowMinSalaryException, BelowMinAgeException {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("What type of account would you like to open");
 		System.out.println("Press 1 for Savings");
@@ -38,18 +43,30 @@ public class BankApplication {
 		System.out.println("How much would you like to deposit?");
 		int deposit = sc.nextInt();
 		String acct_name = "";
-		if(acct_type == 1) {
-			acct_name = "savings_account";
-		} else if (acct_type == 2) {
-			acct_name = "salary_account";
-		} else if (acct_type == 3) {
-			acct_name = "current_account";
-		}
 		System.out.println("What is the contact of the customer for the account");
 		String name = sc.next();
 		int cust_id = cs.retrieveCust(name);
-		AddAccount aa = new AddAccount();
-		aa.openAnAccount(acct_name, cust_id, deposit);
+		if(acct_type == 1) {
+			acct_name = "savings_account";
+			try {
+				int age = cs.retrieveAge(name);
+				SavingsAccount sav = new SavingsAccount(deposit, age, cust_id);
+			} catch (BelowMinBalanceException e) {
+				e.printStackTrace();
+			} catch (BelowMinAgeException e) {
+				e.printStackTrace();
+			}
+		} else if (acct_type == 2) {
+			acct_name = "salary_account";
+			int age = cs.retrieveAge(name);
+			int salary = cs.retrieveSalary(name);
+			SalaryAccount sal = new SalaryAccount(deposit, salary, age, cust_id);
+		} else if (acct_type == 3) {
+			acct_name = "current_account";
+			int age = cs.retrieveAge(name);
+			int salary = cs.retrieveSalary(name);
+			CurrentAccount cur = new CurrentAccount(deposit, salary, age, cust_id);
+		}
 		sc.close();
 	};
 	
@@ -161,6 +178,23 @@ public class BankApplication {
 		public void retrieveStatement() {
 			Scanner sc = new Scanner(System.in);
 			System.out.println("Which account statement would you like to look at");
+			System.out.println("Press 1 for Savings");
+			System.out.println("Press 2 for Salary");
+			System.out.println("Press 3 for Current");
+			int acct_choice = sc.nextInt();
+			System.out.println("Enter the contact for the customer?");
+			String contact = sc.next();
+			int cust_id = cs.retrieveCust(contact);
+			if(acct_choice == 1) {
+				SavingsAccount sav = new SavingsAccount();
+				sav.getStatement(cust_id);
+			} else if (acct_choice == 2) {
+				SalaryAccount sal = new SalaryAccount();
+				sal.getStatement(cust_id);
+			} else if (acct_choice == 3) {
+				CurrentAccount cur = new CurrentAccount();
+				cur.getStatement(cust_id);
+			}
 			sc.close();
 		}
 		
@@ -177,7 +211,15 @@ public class BankApplication {
 			if(opening == 1) {
 				ba.addUser();
 			} else if (opening == 2) {
-				ba.openAccount();
+				try {
+					ba.openAccount();
+				} catch (BelowMinBalanceException e) {
+					e.printStackTrace();
+				} catch (BelowMinSalaryException e) {
+					e.printStackTrace();
+				} catch (BelowMinAgeException e) {
+					e.printStackTrace();
+				}
 			} else if (opening == 3) {
 				System.out.println("What type of transaction would you like to make?");
 				System.out.println("Press 1 for deposit");
@@ -195,8 +237,8 @@ public class BankApplication {
 				ba.retrieveStatement();
 			}
 			sc.close();
+			bankRunner();
 		}
-		
 		
 	}
 

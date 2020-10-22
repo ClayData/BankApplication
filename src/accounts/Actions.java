@@ -8,7 +8,7 @@ public interface Actions {
 	
 	void withdraw(int amount, int cust_id) throws BelowMinBalanceException;
 	 
-	ArrayList<Integer> getStatement();
+	ArrayList<Integer> getStatement(int cust_id);
 
 	void deposit(int amount, int cust_id);
 }

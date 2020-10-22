@@ -2,7 +2,7 @@ package accounts;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import database.Statement;
 import database.AddAccount;
 import database.BalanceCheck;
 import database.TransferMoney;
@@ -94,8 +94,9 @@ public class SavingsAccount implements Actions{
 	}
 
 	@Override
-	public ArrayList<Integer> getStatement() {
-		// TODO Auto-generated method stub
+	public ArrayList<Integer> getStatement(int cust_id) {
+		Statement st = new Statement();
+		st.retrieveStatement(cust_id, "savings_account");
 		return this.statement;
 	}
 

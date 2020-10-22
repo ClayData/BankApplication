@@ -10,7 +10,7 @@ import java.sql.Statement;
 public class AddUser {
 
 	
-	public void addCustomer(String name, String gender, int salary, String contact) {
+	public void addCustomer(String name, String gender, int salary, String contact, int age) {
 		Connection con = null;
 		int id = 0;
 		try {
@@ -24,13 +24,14 @@ public class AddUser {
 				id = rs.getInt(1) + 1;
 			}
 			
-			PreparedStatement pre = con.prepareStatement("insert into customers values(?,?,?,?,?,?,?,?)");
+			PreparedStatement pre = con.prepareStatement("insert into customers values(?,?,?,?,?,?,?,?,?)");
 			
 			
 			pre.setInt(1, id);
 			pre.setString(2, name.toLowerCase());
 			pre.setString(3, gender.toLowerCase());
 			pre.setInt(4, salary);
+			pre.setInt(5, age);
 			pre.setString(5, contact.toLowerCase());
 			pre.setNull(6, java.sql.Types.INTEGER);
 			pre.setNull(7, java.sql.Types.INTEGER);

@@ -41,4 +41,70 @@ public class CustRetriever {
 		}
 		return cust_id;
 	}
+	
+public int retrieveAge(String custContact) {
+		
+		int cust_age = 0;
+		Connection con = null;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			con = DriverManager.getConnection("jdbc:oracle:thin:@bankdatabase.cz8yphudm026.us-east-2.rds.amazonaws.com:1521:orcl", "admin", "spicymeatball");
+			
+			
+			PreparedStatement stm = con.prepareStatement("select age from customers where contact = ?");
+			stm.setString(1, custContact);
+			ResultSet rs = stm.executeQuery();
+			while(rs.next()) {
+				cust_age = rs.getInt(1);
+			}
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
+		}
+		return cust_age;
+	}
+	
+public int retrieveSalary(String custContact) {
+	
+	int salary = 0;
+	Connection con = null;
+	try {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		
+		con = DriverManager.getConnection("jdbc:oracle:thin:@bankdatabase.cz8yphudm026.us-east-2.rds.amazonaws.com:1521:orcl", "admin", "spicymeatball");
+		
+		
+		PreparedStatement stm = con.prepareStatement("select salary from customers where contact = ?");
+		stm.setString(1, custContact);
+		ResultSet rs = stm.executeQuery();
+		while(rs.next()) {
+			salary = rs.getInt(1);
+		}
+		
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	finally {
+		try {
+			con.close();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
+	return salary;
+}
 }

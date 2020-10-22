@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import database.AddAccount;
 import database.BalanceCheck;
+import database.Statement;
 import database.TransferMoney;
 import database.AccountDeposit;
 import database.WithdrawMoney;
@@ -96,8 +97,9 @@ public class SalaryAccount implements Actions {
 	}
 
 	@Override
-	public ArrayList<Integer> getStatement() {
-		
+	public ArrayList<Integer> getStatement(int cust_id) {
+		Statement st = new Statement();
+		st.retrieveStatement(cust_id, "salary_account");
 		return this.statement;
 	}
 	

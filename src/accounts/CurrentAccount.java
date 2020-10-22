@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import database.BalanceCheck;
+import database.Statement;
 import database.AddAccount;
 import database.TransferMoney;
 import database.AccountDeposit;
@@ -97,8 +98,9 @@ public class CurrentAccount implements Actions {
 	}
 
 	@Override
-	public ArrayList<Integer> getStatement() {
-		// TODO Auto-generated method stub
+	public ArrayList<Integer> getStatement(int cust_id) {
+		Statement st = new Statement();
+		st.retrieveStatement(cust_id, "current_account");
 		return this.statement;
 	}
 	
