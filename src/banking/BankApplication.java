@@ -237,7 +237,7 @@ public class BankApplication {
 				ba.retrieveStatement();
 			}
 			sc.close();
-			bankRunner();
+			
 		}
 		
 	}

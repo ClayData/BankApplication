@@ -32,10 +32,10 @@ public class AddUser {
 			pre.setString(3, gender.toLowerCase());
 			pre.setInt(4, salary);
 			pre.setInt(5, age);
-			pre.setString(5, contact.toLowerCase());
-			pre.setNull(6, java.sql.Types.INTEGER);
+			pre.setString(6, contact.toLowerCase());
 			pre.setNull(7, java.sql.Types.INTEGER);
 			pre.setNull(8, java.sql.Types.INTEGER);
+			pre.setNull(9, java.sql.Types.INTEGER);
 			
 			pre.executeUpdate();
 			

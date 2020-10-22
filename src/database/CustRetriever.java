@@ -24,6 +24,7 @@ public class CustRetriever {
 			ResultSet rs = stm.executeQuery();
 			while(rs.next()) {
 				cust_id = rs.getInt(1);
+				return cust_id;
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -57,6 +58,7 @@ public int retrieveAge(String custContact) {
 			ResultSet rs = stm.executeQuery();
 			while(rs.next()) {
 				cust_age = rs.getInt(1);
+				return cust_age;
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -72,6 +74,7 @@ public int retrieveAge(String custContact) {
 				e.printStackTrace();
 			}
 		}
+		
 		return cust_age;
 	}
 	
@@ -90,6 +93,7 @@ public int retrieveSalary(String custContact) {
 		ResultSet rs = stm.executeQuery();
 		while(rs.next()) {
 			salary = rs.getInt(1);
+			return salary;
 		}
 		
 	} catch (ClassNotFoundException e) {
