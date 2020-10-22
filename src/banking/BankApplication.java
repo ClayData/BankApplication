@@ -240,8 +240,7 @@ public class BankApplication {
 				sc.close();
 			}
 			
-			sc.nextLine();
-			bankRunner();
+			sc.close();
 		}
 		
 	}

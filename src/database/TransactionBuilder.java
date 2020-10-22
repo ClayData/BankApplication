@@ -19,10 +19,10 @@ public class TransactionBuilder {
 			PreparedStatement stm = con.prepareStatement("select max(transact_id) from transactions");
 			ResultSet rs = stm.executeQuery();
 			while(rs.next()) {
-				System.out.println(rs.getInt(1));
+				
 				id = rs.getInt(1) + 1;
 			}
-			System.out.print(id);
+			
 			PreparedStatement pre = con.prepareStatement("insert into transactions values(?,?,?,?,?)");
 			pre.setInt(1, id);
 			pre.setInt(2, amount);
