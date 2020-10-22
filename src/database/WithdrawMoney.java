@@ -15,10 +15,10 @@ public class WithdrawMoney {
 		int acctId = 0;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			System.out.println("Driver Register");
+			
 			
 			con = DriverManager.getConnection("jdbc:oracle:thin:@bankdatabase.cz8yphudm026.us-east-2.rds.amazonaws.com:1521:orcl", "admin", "spicymeatball");
-			System.out.println("connection done");
+			
 
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("select * from " + accountType + " where cust_id = " + cust_id);
@@ -29,6 +29,9 @@ public class WithdrawMoney {
 			
 			PreparedStatement pre = con.prepareStatement("update " + accountType + " set balance = " + balance + " where cust_id = " + cust_id);
 			pre.executeUpdate();
+			
+			TransactionBuilder tb = new TransactionBuilder();
+			tb.addTransaction(amount, cust_id, accountType, acctId);
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

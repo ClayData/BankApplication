@@ -30,10 +30,8 @@ public class TransactionBuilder {
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			System.out.println("Driver Register");
 			
 			con = DriverManager.getConnection("jdbc:oracle:thin:@bankdatabase.cz8yphudm026.us-east-2.rds.amazonaws.com:1521:orcl", "admin", "spicymeatball");
-			System.out.println("connection done");
 			
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("select max(transact_id) from transactions");

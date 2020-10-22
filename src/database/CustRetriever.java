@@ -2,25 +2,28 @@ package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.ResultSet;
 
-public class BalanceCheck {
+
+public class CustRetriever {
 	
-	public int checkBalance(String accName, int cust_id) {
+	public int retrieveCust(String custContact) {
+		
+		int cust_id = 0;
 		Connection con = null;
-		int balance = 0;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
 			con = DriverManager.getConnection("jdbc:oracle:thin:@bankdatabase.cz8yphudm026.us-east-2.rds.amazonaws.com:1521:orcl", "admin", "spicymeatball");
 			
-			Statement stmt=con.createStatement();
-			ResultSet rs = stmt.executeQuery("select balance from " + accName + " where cust_id = " + cust_id);
 			
+			PreparedStatement stm = con.prepareStatement("select cust_id from customers where contact = ?");
+			stm.setString(1, custContact);
+			ResultSet rs = stm.executeQuery();
 			while(rs.next()) {
-				balance = rs.getInt(1);
+				cust_id = rs.getInt(1);
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -36,6 +39,6 @@ public class BalanceCheck {
 				e.printStackTrace();
 			}
 		}
-		return balance;
+		return cust_id;
 	}
 }

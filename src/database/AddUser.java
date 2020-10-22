@@ -15,11 +15,9 @@ public class AddUser {
 		int id = 0;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			System.out.println("Driver Register");
 			
-			 con = DriverManager.getConnection("jdbc:oracle:thin:@bankdatabase.cz8yphudm026.us-east-2.rds.amazonaws.com:1521:orcl", "admin", "spicymeatball");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@bankdatabase.cz8yphudm026.us-east-2.rds.amazonaws.com:1521:orcl", "admin", "spicymeatball");
 			
-			System.out.println("connection done");
 			Statement stmt=con.createStatement();
 			ResultSet rs = stmt.executeQuery("select MAX(cust_id) from customers");
 			while(rs.next()) {
@@ -30,10 +28,10 @@ public class AddUser {
 			
 			
 			pre.setInt(1, id);
-			pre.setString(2, name);
-			pre.setString(3, gender);
+			pre.setString(2, name.toLowerCase());
+			pre.setString(3, gender.toLowerCase());
 			pre.setInt(4, salary);
-			pre.setString(5, contact);
+			pre.setString(5, contact.toLowerCase());
 			pre.setNull(6, java.sql.Types.INTEGER);
 			pre.setNull(7, java.sql.Types.INTEGER);
 			pre.setNull(8, java.sql.Types.INTEGER);
