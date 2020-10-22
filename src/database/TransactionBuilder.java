@@ -32,7 +32,7 @@ public class TransactionBuilder {
 			pre.executeUpdate();
 			
 			
-			System.out.println("Allegedly Inseted");
+			
 		}  catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

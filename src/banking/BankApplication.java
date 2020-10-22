@@ -206,6 +206,7 @@ public class BankApplication {
 			System.out.println("Press 2 to open a new account with a customer");
 			System.out.println("Press 3 to make a transaction");
 			System.out.println("Press 4 to get an account statement");
+			System.out.println("Press 5 to close");
 			int opening = sc.nextInt();
 			int transaction;
 			if(opening == 1) {
@@ -235,9 +236,12 @@ public class BankApplication {
 				}
 			} else if (opening == 4) {
 				ba.retrieveStatement();
+			} else if (opening == 5) {
+				sc.close();
 			}
-			sc.close();
 			
+			sc.nextLine();
+			bankRunner();
 		}
 		
 	}
