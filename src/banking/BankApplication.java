@@ -15,9 +15,10 @@ import database.CustRetriever;
 public class BankApplication {
 	
 	CustRetriever cs = new CustRetriever();
+	Scanner sc = new Scanner(System.in);
 	
 	public void addUser() {
-		Scanner sc = new Scanner(System.in);
+//		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter customer name: ");
 		String name = sc.next();
 		System.out.println("Enter customer gender: ");
@@ -30,11 +31,11 @@ public class BankApplication {
 		int age = sc.nextInt();
 		AddUser au = new AddUser();
 		au.addCustomer(name, gender, salary, contact, age);
-		sc.close();
+//		sc.close();
 	}
 	
 	public void openAccount() throws BelowMinBalanceException, BelowMinSalaryException, BelowMinAgeException {
-		Scanner sc = new Scanner(System.in);
+//		Scanner sc = new Scanner(System.in);
 		System.out.println("What type of account would you like to open");
 		System.out.println("Press 1 for Savings");
 		System.out.println("Press 2 for Salary");
@@ -42,12 +43,11 @@ public class BankApplication {
 		int acct_type = sc.nextInt();
 		System.out.println("How much would you like to deposit?");
 		int deposit = sc.nextInt();
-		String acct_name = "";
+
 		System.out.println("What is the contact of the customer for the account");
 		String name = sc.next();
 		int cust_id = cs.retrieveCust(name);
 		if(acct_type == 1) {
-			acct_name = "savings_account";
 			try {
 				int age = cs.retrieveAge(name);
 				SavingsAccount sav = new SavingsAccount(deposit, age, cust_id);
@@ -57,21 +57,23 @@ public class BankApplication {
 				e.printStackTrace();
 			}
 		} else if (acct_type == 2) {
-			acct_name = "salary_account";
+			
 			int age = cs.retrieveAge(name);
 			int salary = cs.retrieveSalary(name);
 			SalaryAccount sal = new SalaryAccount(deposit, salary, age, cust_id);
 		} else if (acct_type == 3) {
-			acct_name = "current_account";
+			
 			int age = cs.retrieveAge(name);
 			int salary = cs.retrieveSalary(name);
 			CurrentAccount cur = new CurrentAccount(deposit, salary, age, cust_id);
 		}
-		sc.close();
+//		sc.close();
+		BankApplication ba = new BankApplication();
+		ba.bankRunner();
 	};
 	
 	public void depositToAccount() {
-		Scanner sc = new Scanner(System.in);
+//		Scanner sc = new Scanner(System.in);
 		System.out.println("Which account would you like to deposit to?");
 		System.out.println("Press 1 for Savings");
 		System.out.println("Press 2 for Salary");
@@ -96,11 +98,11 @@ public class BankApplication {
 			System.out.println("You have entered wrong please try again");
 			depositToAccount();
 		}
-		sc.close();
+//		sc.close();
 	}
 	
 	public void withdrawFromAccount() {
-		Scanner sc = new Scanner(System.in);
+//		Scanner sc = new Scanner(System.in);
 		System.out.println("Which account would you like to withdraw from?");
 		System.out.println("Press 1 for savings account?");
 		System.out.println("Press 2 for salary account?");
@@ -126,11 +128,11 @@ public class BankApplication {
 			sc.close();
 			withdrawFromAccount();
 		}
-		sc.close();
+//		sc.close();
 	}
 	
 	public void transaction() {
-		Scanner sc = new Scanner(System.in);
+//		Scanner sc = new Scanner(System.in);
 		System.out.println("Which accounts would you like to transfer from and to?");
 		System.out.println("Press 1 for savings to salary");
 		System.out.println("Press 2 for savings to current");
@@ -167,16 +169,11 @@ public class BankApplication {
 			sc.close();
 			transaction();
 		}
-		sc.close();
+//		sc.close();
 	}
-	
-	public static void main(String[] args) {
-		BankApplication ba = new BankApplication();
-		ba.bankRunner();
-		}
 		
 		public void retrieveStatement() {
-			Scanner sc = new Scanner(System.in);
+//			Scanner sc = new Scanner(System.in);
 			System.out.println("Which account statement would you like to look at");
 			System.out.println("Press 1 for Savings");
 			System.out.println("Press 2 for Salary");
@@ -195,12 +192,14 @@ public class BankApplication {
 				CurrentAccount cur = new CurrentAccount();
 				cur.getStatement(cust_id);
 			}
-			sc.close();
+//			sc.close();
+			BankApplication ba = new BankApplication();
+			ba.bankRunner();
 		}
 		
 		public void bankRunner() {
 			BankApplication ba = new BankApplication();
-			Scanner sc = new Scanner(System.in);
+			
 			System.out.println("What would you like to do:");
 			System.out.println("Press 1 to add a customer");
 			System.out.println("Press 2 to open a new account with a customer");
@@ -209,6 +208,7 @@ public class BankApplication {
 			System.out.println("Press 5 to close");
 			int opening = sc.nextInt();
 			int transaction;
+			
 			if(opening == 1) {
 				ba.addUser();
 			} else if (opening == 2) {
@@ -239,9 +239,12 @@ public class BankApplication {
 			} else if (opening == 5) {
 				sc.close();
 			}
-			
-			sc.close();
 		}
+		
+		public static void main(String[] args) {
+			BankApplication ba = new BankApplication();
+			ba.bankRunner();
+			}
 		
 	}
 
