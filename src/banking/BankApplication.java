@@ -18,7 +18,6 @@ public class BankApplication {
 	Scanner sc = new Scanner(System.in);
 	
 	public void addUser() {
-//		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter customer name: ");
 		String name = sc.next();
 		System.out.println("Enter customer gender: ");
@@ -31,11 +30,10 @@ public class BankApplication {
 		int age = sc.nextInt();
 		AddUser au = new AddUser();
 		au.addCustomer(name, gender, salary, contact, age);
-//		sc.close();
+		bankRunner();
 	}
 	
 	public void openAccount() throws BelowMinBalanceException, BelowMinSalaryException, BelowMinAgeException {
-//		Scanner sc = new Scanner(System.in);
 		System.out.println("What type of account would you like to open");
 		System.out.println("Press 1 for Savings");
 		System.out.println("Press 2 for Salary");
@@ -67,13 +65,10 @@ public class BankApplication {
 			int salary = cs.retrieveSalary(name);
 			CurrentAccount cur = new CurrentAccount(deposit, salary, age, cust_id);
 		}
-//		sc.close();
-		BankApplication ba = new BankApplication();
-		ba.bankRunner();
+		bankRunner();
 	};
 	
 	public void depositToAccount() {
-//		Scanner sc = new Scanner(System.in);
 		System.out.println("Which account would you like to deposit to?");
 		System.out.println("Press 1 for Savings");
 		System.out.println("Press 2 for Salary");
@@ -98,11 +93,10 @@ public class BankApplication {
 			System.out.println("You have entered wrong please try again");
 			depositToAccount();
 		}
-//		sc.close();
+		bankRunner();
 	}
 	
 	public void withdrawFromAccount() {
-//		Scanner sc = new Scanner(System.in);
 		System.out.println("Which account would you like to withdraw from?");
 		System.out.println("Press 1 for savings account?");
 		System.out.println("Press 2 for salary account?");
@@ -128,11 +122,10 @@ public class BankApplication {
 			sc.close();
 			withdrawFromAccount();
 		}
-//		sc.close();
+		bankRunner();
 	}
 	
 	public void transaction() {
-//		Scanner sc = new Scanner(System.in);
 		System.out.println("Which accounts would you like to transfer from and to?");
 		System.out.println("Press 1 for savings to salary");
 		System.out.println("Press 2 for savings to current");
@@ -169,11 +162,10 @@ public class BankApplication {
 			sc.close();
 			transaction();
 		}
-//		sc.close();
+		bankRunner();
 	}
 		
 		public void retrieveStatement() {
-//			Scanner sc = new Scanner(System.in);
 			System.out.println("Which account statement would you like to look at");
 			System.out.println("Press 1 for Savings");
 			System.out.println("Press 2 for Salary");
@@ -192,9 +184,7 @@ public class BankApplication {
 				CurrentAccount cur = new CurrentAccount();
 				cur.getStatement(cust_id);
 			}
-//			sc.close();
-			BankApplication ba = new BankApplication();
-			ba.bankRunner();
+			bankRunner();
 		}
 		
 		public void bankRunner() {
